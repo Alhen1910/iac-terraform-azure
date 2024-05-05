@@ -17,6 +17,14 @@ resource "azurerm_storage_account" "StorageAccount2" {
 
 resource "azurerm_storage_container" "StorageContainer1" {
   name                  = var.storage_container_name
-  storage_account_name  = azurerm_storage_account.storagecontainer1.name
+  storage_account_name  = azurerm_storage_account.storagecontainer2.name
   container_access_type = var.storage_container_access_type
+}
+
+resource "azurerm_storage_blob" "StorageBlob1" {
+  name                   = var.storage_blob_name
+  storage_account_name   = azurerm_storage_account.storagecontainer2.name
+  storage_container_name = azurerm_storage_container.storagecontainer1.name
+  type                   = var.storage_blob_type
+  source                 = var.storage_blob_source
 }
