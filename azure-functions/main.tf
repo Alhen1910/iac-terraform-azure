@@ -1,30 +1,30 @@
 resource "azurerm_resource_group" "resourcegroup1" {
-  name     = "resourcegroup1"
-  location = "West Europe"
+  name     = var.resource_group_name
+  location = var.resource_group_location
 }
 
 resource "azurerm_storage_account" "StorageAccount1" {
-  name                     = "storageaccount1"
+  name                     = var.storage_account_name
   resource_group_name      = azurerm_resource_group.resourcegroup1.name
   location                 = azurerm_resource_group.resourcegroup1.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
+  account_tier             = var.storage_account_tier
+  account_replication_type = var.storage_account_replication_type
 
   tags = {
-    environment = "staging"
+    environment = var.storage_account_environment
   }
 }
 
 resource "azurerm_service_plan" "ServicePlan1" {
-  name                = "serviceplan1"
+  name                = var.service_plan_name
   resource_group_name = azurerm_resource_group.resourcegroup1.name
   location            = azurerm_resource_group.resourcegroup1.location
-  os_type             = "Linux"
-  sku_name            = "P1v2"
+  os_type             = var.service_plan_os_type
+  sku_name            = var.service_plan_sku_name
 }
 
 resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
-  name                = "linuxfunctionapp1"
+  name                = var.linux_function_app_name
   resource_group_name = azurerm_resource_group.resourcegroup1.name
   location            = azurerm_resource_group.resourcegroup1.location
 
@@ -36,28 +36,28 @@ resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
 }
 
 resource "azurerm_function_app_function" "FunctionAppFunction1" {
-  name            = "functionappfunction1"
+  name            = var.function_app_function_name
   function_app_id = azurerm_linux_function_app.linuxfunctionapp1.id
-  language        = "Python"
+  language        = var.function_app_function_language
   test_data = jsonencode({
-    "name" = "Azure"
+    "name" = var.function_app_function_test_date_name
   })
   config_json = jsonencode({
     "bindings" = [
       {
-        "authLevel" = "function"
-        "direction" = "in"
+        "authLevel" = var.function_app_function_authlevel
+        "direction" = var.function_app_function_bindings_direction
         "methods" = [
-          "get",
-          "post",
+          var.function_app_function_get_method,
+          var.function_app_function_post_method,
         ]
-        "name" = "req"
-        "type" = "httpTrigger"
+        "name" = var.function_app_function_bindings_name
+        "type" = var.function_app_function_bindings_type
       },
       {
-        "direction" = "out"
-        "name"      = "$return"
-        "type"      = "http"
+        "direction" = var.function_app_function_direction
+        "name"      = var.function_app_function_bindings_name_2
+        "type"      = var.function_app_function_bindings_type_2
       },
     ]
   })
