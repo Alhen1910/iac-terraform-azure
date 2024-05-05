@@ -30,7 +30,7 @@ resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
 
   storage_account_name       = azurerm_storage_account.StorageAccount1.name
   storage_account_access_key = azurerm_storage_account.StorageAccount1.primary_access_key
-  service_plan_id            = azurerm_service_plan.serviceplan1.id
+  service_plan_id            = azurerm_service_plan.ServicePlan1.id
 
   site_config {}
 }
