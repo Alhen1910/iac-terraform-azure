@@ -27,3 +27,28 @@ variable "blob_storage_storage_account_environment" {
 	type = string
 	default = "staging"
 }
+
+variable "storage_container_name" {
+	type = string
+	default = "storagecontainer1"
+}
+
+variable "storage_container_access_type" {
+	type = string
+	default = "private"
+}
+
+variable "storage_blob_name" {
+	type = string
+	default = "storageblob1.zip"
+}
+
+variable "storage_blob_type" {
+	type = string
+	default = "Block"
+}
+
+variable "storage_blob_source" {
+	type = string
+	default = "blobsource.zip"
+}
