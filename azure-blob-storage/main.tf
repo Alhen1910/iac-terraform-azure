@@ -14,3 +14,9 @@ resource "azurerm_storage_account" "StorageAccount2" {
     environment = var.blob_storage_storage_account_environment
   }
 }
+
+resource "azurerm_storage_container" "StorageContainer1" {
+  name                  = var.storage_container_name
+  storage_account_name  = azurerm_storage_account.storagecontainer1.name
+  container_access_type = var.storage_container_access_type
+}
