@@ -22,3 +22,15 @@ resource "azurerm_service_plan" "ServicePlan1" {
   os_type             = "Linux"
   sku_name            = "P1v2"
 }
+
+resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
+  name                = "linuxfunctionapp1"
+  resource_group_name = azurerm_resource_group.resourcegroup1.name
+  location            = azurerm_resource_group.resourcegroup1.location
+
+  storage_account_name       = azurerm_storage_account.storageaccount1.name
+  storage_account_access_key = azurerm_storage_account.storageaccount1.primary_access_key
+  service_plan_id            = azurerm_service_plan.serviceplan1.id
+
+  site_config {}
+}
