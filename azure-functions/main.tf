@@ -1,4 +1,16 @@
-resource "azurerm_resource_group" "Azure Resource Group" {
-  name     = "Azure Resource Grou"
+resource "azurerm_resource_group" "resourcegroup1" {
+  name     = "resourcegroup1"
   location = "West Europe"
+}
+
+resource "azurerm_storage_account" "StorageAccount1" {
+  name                     = "storageaccount1"
+  resource_group_name      = resourcegroup1.name
+  location                 = resourcegroup1.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+
+  tags = {
+    environment = "staging"
+  }
 }
