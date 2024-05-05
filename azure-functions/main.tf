@@ -28,8 +28,8 @@ resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
   resource_group_name = azurerm_resource_group.resourcegroup1.name
   location            = azurerm_resource_group.resourcegroup1.location
 
-  storage_account_name       = azurerm_storage_account.storageaccount1.name
-  storage_account_access_key = azurerm_storage_account.storageaccount1.primary_access_key
+  storage_account_name       = azurerm_storage_account.StorageAccount1.name
+  storage_account_access_key = azurerm_storage_account.StorageAccount1.primary_access_key
   service_plan_id            = azurerm_service_plan.serviceplan1.id
 
   site_config {}
@@ -37,7 +37,7 @@ resource "azurerm_linux_function_app" "LinuxFunctionApp1" {
 
 resource "azurerm_function_app_function" "FunctionAppFunction1" {
   name            = var.function_app_function_name
-  function_app_id = azurerm_linux_function_app.linuxfunctionapp1.id
+  function_app_id = azurerm_linux_function_app.LinuxFunctionApp1.id
   language        = var.function_app_function_language
   test_data = jsonencode({
     "name" = var.function_app_function_test_date_name
